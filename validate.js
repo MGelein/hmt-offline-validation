@@ -10,6 +10,14 @@ const { validatePaleo } = require('./lib/paleo');
 const chalk = require('chalk');
 const fs = require('fs');
 const marked = require('marked');
+const sys = require('sys');
+const exec = require('child_process').exec;
+const stylesheet = `
+*{
+    font-family: Arial, Helvetica, sans-serif
+    padding-left: 5em;
+}
+`;
 
 //The persons database
 let persons;
@@ -67,8 +75,8 @@ function startValidation() {
     //See if all arguments are set
     if (!MODE || !MANUSCRIPT || !TARGET) {
         if (!MODE) console.log("No mode has been set, possibilities are 'paleo', 'xml', 'index'");
-        if(!MANUSCRIPT) console.log("No manuscript has been set, possibilities are 'e3', 'vb'");
-        if(!TARGET) console.log("No target has been set, possibilities are 'scholia', 'main'");
+        if (!MANUSCRIPT) console.log("No manuscript has been set, possibilities are 'e3', 'vb'");
+        if (!TARGET) console.log("No target has been set, possibilities are 'scholia', 'main'");
         abort();
     }
 
@@ -87,17 +95,17 @@ function validate() {
         //Set the baseurl
         let fileUrl = "./paleography/paleo";
         //Add the correct manuscript identifier
-        fileUrl += (MANUSCRIPT === E3) ? "e3" : "msB"; 
+        fileUrl += (MANUSCRIPT === E3) ? "e3" : "msB";
         //Add the extra modifier for target
-        fileUrl += (TARGET === SCHOLIA) ? "_scholia": "";
+        fileUrl += (TARGET === SCHOLIA) ? "_scholia" : "";
         //Finally add extension
         fileUrl += ".cex";
-        if(fs.existsSync(fileUrl)){
+        if (fs.existsSync(fileUrl)) {
             console.log(fileUrl);
-            let report = validatePaleo(fs.readFileSync(fileUrl, {encoding: "utf-8"}));
+            let report = validatePaleo(fs.readFileSync(fileUrl, { encoding: "utf-8" }));
             makeHTMLReport(report);
-            
-        }else{
+
+        } else {
             console.log("File does not exist!");
             abort();
         }
@@ -107,9 +115,15 @@ function validate() {
 /**
  * Makes the report using the provided markdown files
  */
-function makeHTMLReport(markdown){
-    let html = marked(markdown);
-    fs.writeFileSync("./reports/report.html", html);
+function makeHTMLReport(markdown) {
+    let html = "<html><head><style>" + stylesheet + "</style></head><body>";
+    html += marked(markdown);
+    html += "</body></html>"
+    let man = (MANUSCRIPT === VB) ? "vb" : "e3";
+    let fileName = MODE + "-" + TARGET + "-" + man + "-report";
+    fs.writeFileSync("./reports/" + fileName + ".html", html);
+
+    exec(getCommandLine() + ' ./reports/' + fileName + ".html");
 }
 
 
@@ -173,4 +187,16 @@ function isPaleo(s) {
 function isXML(s) {
     //If this string is a paleo option
     return ["x", "xml", "xlm"].indexOf(s) > -1;
+}
+
+/**
+ * Gets the appropriate command for each platform
+ */
+function getCommandLine() {
+    switch (process.platform) {
+        case 'darwin': return 'open';
+        case 'win32': return 'start';
+        case 'win64': return 'start';
+        default: return 'xdg-open';
+    }
 }
