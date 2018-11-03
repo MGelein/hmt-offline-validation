@@ -4,7 +4,7 @@ A button with some text on it
 class TextButton extends Button{
   //The text on the button
   String text;
-  int textSize = 30;
+  int textSize = 20;
   float margin = 8;
   
   TextButton(PVector pos, color bgColor, String text){
@@ -78,7 +78,7 @@ class Button extends GUIObject{
     strokeWeight(2);
     stroke(darkColor);
     fill((underMouse ? lightColor : mainColor));
-    if(outlineMode) fill(underMouse ? lightColor : 255);
+    if(outlineMode) fill(underMouse ? lightColor : 255, underMouse ? 40 : 255);
     rect(pos.x, pos.y, dim.x, dim.y);
   }
   
@@ -94,6 +94,8 @@ class GUI implements IUpdate, IRender{
   ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
   //The objects that need to be removed
   ArrayList<GUIObject> toRemove = new ArrayList<GUIObject>();
+  //The objects that need to be added
+  ArrayList<GUIObject> toAdd = new ArrayList<GUIObject>();
 
   /**
   Renders all objects
@@ -113,6 +115,12 @@ class GUI implements IUpdate, IRender{
     if(toRemove.size() > 0) {
       for(GUIObject o : toRemove) objects.remove(o);
       toRemove.clear();
+    }
+    
+    //Add items that want to be added
+    if(toAdd.size() > 0){
+      for(GUIObject o : toAdd) objects.add(o);
+      toAdd.clear();
     }
     
     //Do hover stuff
@@ -136,7 +144,7 @@ class GUI implements IUpdate, IRender{
   Adds a new object to the GUI
   **/
   void addObj(GUIObject o){
-    objects.add(o);
+    toAdd.add(o);
   }
   
   /**
@@ -174,6 +182,11 @@ abstract class GUIObject implements IUpdate, IRender{
       void clicked(){
       }
     };
+  }
+  
+  /**Selfdestruction method*/
+  void die(){
+    gui.removeObj(this);
   }
   
   /**
