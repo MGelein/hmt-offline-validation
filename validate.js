@@ -12,10 +12,8 @@ const fs = require('fs');
 const marked = require('marked');
 const exec = require('child_process').exec;
 const stylesheet = `
-*{
-    font-family: Arial, Helvetica, sans-serif
-    padding-left: 5em;
-}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 `;
 
 //The persons database
@@ -115,9 +113,10 @@ function validate() {
  * Makes the report using the provided markdown files
  */
 function makeHTMLReport(markdown) {
-    let html = "<html><head><style>" + stylesheet + "</style></head><body>";
+    let html = "<html><head>" + stylesheet + "</head><body class='container'>";
     html += marked(markdown);
     html += "</body></html>"
+    html = html.replace('<table>', '<table class="table table-striped">');
     let man = (MANUSCRIPT === VB) ? "vb" : "e3";
     let fileName = MODE + "-" + TARGET + "-" + man + "-report";
     fs.writeFileSync("./reports/" + fileName + ".html", html);
