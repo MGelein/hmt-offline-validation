@@ -10,7 +10,6 @@ const { validatePaleo } = require('./lib/paleo');
 const chalk = require('chalk');
 const fs = require('fs');
 const marked = require('marked');
-const sys = require('sys');
 const exec = require('child_process').exec;
 const stylesheet = `
 *{
