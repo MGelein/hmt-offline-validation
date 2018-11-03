@@ -7,7 +7,7 @@ void setup(){
   //Sets the size of the screen (1280x720)
   size(1280, 720);
   
-  Button b = new Button(new PVector(50, 50), new PVector(200, 100), color(255, 125, 125));
+  TextButton b = new TextButton(new PVector(50, 50), color(255, 125, 125), "Hello World");
   b.addMouseListener(new MouseListener(){
     public void clicked(){
       println("yeah");

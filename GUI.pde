@@ -1,4 +1,41 @@
 /**
+A button with some text on it
+**/
+class TextButton extends Button{
+  //The text on the button
+  String text;
+  int textSize = 30;
+  float margin = 8;
+  
+  TextButton(PVector pos, color bgColor, String text){
+    super(pos, new PVector(), bgColor);
+    this.text = text;
+    textSize(textSize);
+    this.dim = calcDim();
+  }
+  
+  PVector calcDim(){
+    PVector vec = new PVector();
+    vec.y = textSize + 2 * margin;
+    vec.x = textWidth(text) + 2 * margin + 2;
+    return vec;
+  }
+  
+  /**Render the textButton*/
+  void render(){
+    //Render the button base
+    super.render();
+    //Now render the text on it
+    textSize(textSize);
+    fill(0, 200);
+    if(!outlineMode) text(text, pos.x + margin + 2, pos.y + textSize + margin);
+    fill(255);
+    if(outlineMode) fill(mainColor);
+    text(text, pos.x - 2 + margin + 2, pos.y - 2 + textSize + margin);
+  }
+}
+
+/**
 A simple button class
 **/
 class Button extends GUIObject{
@@ -6,6 +43,7 @@ class Button extends GUIObject{
   color mainColor;
   color darkColor;
   color lightColor;
+  boolean outlineMode = true;
   
   Button(PVector pos, PVector dim, color bgColor){
     //Set position and size to match.
@@ -35,11 +73,12 @@ class Button extends GUIObject{
     //First draw the shadow
     noStroke();
     fill(0, 100);
-    rect(pos.x + 4, pos.y + 4, dim.x, dim.y);
+    if(!outlineMode) rect(pos.x + 4, pos.y + 4, dim.x, dim.y);
     //Draw the main button
     strokeWeight(2);
     stroke(darkColor);
     fill((underMouse ? lightColor : mainColor));
+    if(outlineMode) fill(underMouse ? lightColor : 255);
     rect(pos.x, pos.y, dim.x, dim.y);
   }
   
