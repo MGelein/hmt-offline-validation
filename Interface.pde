@@ -132,6 +132,8 @@ class Screen {
   void validate(){
     if(MODE.equals(PALEO)){
       Paleo p = new Paleo(MANUSCRIPT, TARGET);
+      p.load();
+      p.validate();
     }
   }
 }
