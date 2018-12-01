@@ -134,6 +134,10 @@ class Screen {
       Paleo p = new Paleo(MANUSCRIPT, TARGET);
       p.load();
       p.validate();
+    }else if(MODE.equals(INDEX)){
+      Index i = new Index(MANUSCRIPT, TARGET);
+      i.load();
+      //i.validate();
     }
   }
 }
