@@ -98,6 +98,8 @@ class Paleo{
       reportLines.append(reportLine);
     }
     
+    //Close the table
+    reportLines.append("</table>");
     //Now when the report has been made, save it
     Report r = new Report(reportLines.toString());
     r.save("paleo" + MANUSCRIPT + (TARGET.equals(SCHOLIA) ? "_scholia" : "") + ".html");

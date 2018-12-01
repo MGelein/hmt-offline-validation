@@ -26,7 +26,7 @@ class PlaceDB {
       p.description = parts[2];
       p.pleiades = parts[3];
       p.status = parts[4];
-      if(parts.length > 5) p.redirect = parts[5];
+      if (parts.length > 5) p.redirect = parts[5];
       //Add it to the places db
       places.add(p);
     }
@@ -110,11 +110,18 @@ class Person {
   boolean isAllowed() {
     return status.equals("accepted") || status.equals("proposed");
   }
+  
+  /**
+  Renders a single table row for the provided person
+  **/
+  String render(String reading){
+    return tr(td(reading) + td(urn) + td(label) + td(description));
+  }
 }
 
 /**
-Data holder for a place entry
-**/
+ Data holder for a place entry
+ **/
 class Place {
   String urn;
   String label;
@@ -122,9 +129,22 @@ class Place {
   String pleiades;
   String status;
   String redirect;
-  
+
   /**Can we use this person?*/
   boolean isAllowed() {
     return status.equals("accepted") || status.equals("proposed");
+  }
+
+  /**
+   Provides a table row render output for the analysis
+   **/
+  String render(String reading) {
+    String labelName = label;
+    //If a stoa containing link is set
+    if(pleiades.indexOf("stoa") > -1){//If the pleiades link is available, make it clickable
+      labelName = "<a target='_blank' href='http://" + pleiades + "'>" + labelName + "</a>";
+    }
+    //Return the markup string
+    return tr(td(reading) + td(urn) + td(labelName) + td(description));
   }
 }

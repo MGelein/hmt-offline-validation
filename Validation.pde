@@ -25,6 +25,9 @@ String HTML_TAIL = "</div></body></html>";
 GUI gui = new GUI();
 Screen screen = new Screen();
 
+PlaceDB places;
+PeopleDB persons;
+
 /**
 Entry point of the code
 **/
@@ -38,7 +41,9 @@ void setup(){
   //First choose what mode you're going to do
   screen.showModeButtons();
   
-  PeopleDB people = new PeopleDB();
+  //Load both the DB's
+  persons = new PeopleDB();
+  places = new PlaceDB();
 }
 
 /**
@@ -108,4 +113,11 @@ Surrounds the provided string in a <td> tag
 **/
 String td(String s){
   return "<td>" + s + "</td>";
+}
+
+/**
+Surrounds the provided string in a tr tag;
+**/
+String tr(String s){
+  return "<tr>" + s + "</tr>"; 
 }

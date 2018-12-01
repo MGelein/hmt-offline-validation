@@ -141,6 +141,7 @@ class Screen {
     }else if(MODE.equals(MARKUP)){
       Markup m = new Markup(MANUSCRIPT, TARGET);
       m.load();
+      m.validate();
     }
   }
 }
