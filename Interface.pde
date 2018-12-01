@@ -138,6 +138,9 @@ class Screen {
       Index i = new Index(MANUSCRIPT, TARGET);
       i.load();
       i.validate();
+    }else if(MODE.equals(MARKUP)){
+      Markup m = new Markup(MANUSCRIPT, TARGET);
+      m.load();
     }
   }
 }

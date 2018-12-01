@@ -32,8 +32,13 @@ void setup(){
   //Sets the size of the screen (640x360)
   size(600, 130);
   
+  //Show the loading background
+  background(0);
+  
   //First choose what mode you're going to do
   screen.showModeButtons();
+  
+  PeopleDB people = new PeopleDB();
 }
 
 /**
@@ -68,6 +73,13 @@ Reads a file relative to the directory this is run from
 **/
 String[] readFile(String url){
   return loadStrings(dataPath("../" + url));
+}
+
+/**
+Reads a file relative to the directory this is run from
+**/
+XML readXML(String url){
+  return loadXML(dataPath("../" + url));
 }
 
 /**
