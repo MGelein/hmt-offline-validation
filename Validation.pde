@@ -88,7 +88,7 @@ String getImageFromUrn(URN urn, int size){
   baseUrl = baseUrl.replaceAll("OBJECT", object);
   baseUrl = baseUrl.replaceAll("REGION", region);
   //Return the constructed URL
-  return "<img src='" + baseUrl + "'>";
+  return "<img class='img-responsive' src='" + baseUrl + "'>";
 }
 
 /**

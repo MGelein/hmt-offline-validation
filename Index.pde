@@ -32,8 +32,6 @@ class Index{
     //Finally add the .cex extension and load
     fileName += ".cex";
     lines = readFile(fileName);
-    
-    for(String l : lines) println(l);
   }
   
   /**
@@ -47,7 +45,7 @@ class Index{
     String manuscriptString = (MANUSCRIPT.equals(VB)) ? "<em>Venetus B</em>" : "<em>Upsilon 1.1</em>";
     reportLines.append("<h1>" + modeString + " for " + TARGET + " of " + manuscriptString + "</h1>");
     reportLines.append("<table class='table table-striped'><tr>");
-    reportLines.append("<th>Observation</th><th>Text</th><th>Image</th><th>Comments</th></tr>");
+    reportLines.append("<th>Locus</th><th>Image</th><th>Page</th></tr>");
     
     //Go through each line and check
     for(int i = 1; i < lines.length; i++){
@@ -55,48 +53,41 @@ class Index{
       String line = lines[i];
       //Skip empty lines
       if(line.trim().length() < 1) continue;
-      //Split the line in parts and check if we have exactly 4
+      //Split the line in parts and check if we have exactly 3
       String[] cexParts = line.split("#");
-      //Check if we have four parts
-      if(cexParts.length != 4 && cexParts.length != 3){
+      //Check if we have three parts
+      if(cexParts.length != 3){
         println("not enough parts", cexParts.length);
         //then skip this line
         continue;
       }
       //Now we know we have enough parts, try to cast the first 3 parts as URN
-      URN obsUrn = new URN(cexParts[0]);
-      if(! obsUrn.valid) println(i, obsUrn.error);
-      URN textUrn = new URN(cexParts[1]);
-      if(! textUrn.valid) println(i, textUrn.error);
-      URN imgUrn = new URN(cexParts[2]);
+      URN locusUrn = new URN(cexParts[0]);
+      if(! locusUrn.valid) println(i, locusUrn.error);
+      URN imgUrn = new URN(cexParts[1]);
       if(! imgUrn.valid) println(i, imgUrn.error);
+      URN pageUrn = new URN(cexParts[2]);
+      if(! pageUrn.valid) println(i, pageUrn.error);
       
-      //Format this row of the urns, start with Obs urn
-      if(obsUrn.valid){
-        reportLine += td(obsUrn.object);
+      //Format this row of the urns, start with locus urn
+      if(locusUrn.valid){
+        reportLine += td(locusUrn.object);
       }else{
-        reportLine += td(obsUrn.error);
-      }
-      
-      //Next check the textUrn
-      if(textUrn.valid){
-        reportLine += td(textUrn.modifier);
-      }else{
-        reportLine += td(textUrn.error);
+        reportLine += td(locusUrn.error);
       }
       
       //Then create an image in the next row
       if(imgUrn.valid){
-        reportLine += td(getImageFromUrn(imgUrn, 200));
+        reportLine += td(getImageFromUrn(imgUrn, target.equals(SCHOLIA) ? 500: 1000));
       }else{
         reportLine += td(imgUrn.error);
       }
       
-      //If there is a comment, append it, if not, don't
-      if(cexParts.length >= 4){
-        reportLine += td(cexParts[3]);
+      //Next check the textUrn
+      if(pageUrn.valid){
+        reportLine += td(pageUrn.urn);
       }else{
-        reportLine += td("");
+        reportLine += td(pageUrn.error);
       }
       
       //Close of this table row and add to other report lines

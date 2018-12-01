@@ -137,7 +137,7 @@ class Screen {
     }else if(MODE.equals(INDEX)){
       Index i = new Index(MANUSCRIPT, TARGET);
       i.load();
-      //i.validate();
+      i.validate();
     }
   }
 }
