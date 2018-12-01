@@ -11,7 +11,7 @@ final String SCHOLIA = "scholia";
 final String MAINTEXT = "maintext";
 String TARGET;
 
-final String E3 = "e3";
+final String E3 = "E3";
 final String VB = "vb";
 String MANUSCRIPT;
 
@@ -81,6 +81,7 @@ String getImageFromUrn(URN urn, int size){
   baseUrl += "hmt/COLLECTION/OBJECT.tif&RGN=REGION&WID=" + size +"&CVT=JPEG";
   String collection = urn.getCollectionForUrl();
   String object = urn.getObjectWithoutModifier();
+  object = object.replaceAll("e3", "E3");
   String region = (urn.modifier == null) ? "" : urn.modifier;
   //Now find replace the original baseUrl
   baseUrl = baseUrl.replaceAll("COLLECTION", collection);
