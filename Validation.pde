@@ -1,10 +1,12 @@
 color RED = color(255, 125, 125);
 color GREEN = color(125, 255, 125);
 color BLUE = color(125, 125, 255);
+color PURPLE = color(255, 125, 255);
 
 final String PALEO = "paleo";
 final String MARKUP = "markup";
 final String INDEX = "index";
+final String MARKERS =  "markers";
 String MODE;
 
 final String SCHOLIA = "scholia";
@@ -27,16 +29,17 @@ Screen screen = new Screen();
 
 PlaceDB places;
 PeopleDB persons;
+ScholiaDB schol;
 
 /**
 Entry point of the code
 **/
 void setup(){
   //Sets the size of the screen (640x360)
-  size(600, 130);
+  size(760, 130);
   
   //Show the loading background
-  background(0);
+  background(255);
   
   //First choose what mode you're going to do
   screen.showModeButtons();
@@ -113,6 +116,13 @@ Surrounds the provided string in a <td> tag
 **/
 String td(String s){
   return "<td>" + s + "</td>";
+}
+
+/**
+Surround the provided string in a "<sup>  tag
+**/
+String sup(String s){
+  return "<sup>" + s + "</sup>";
 }
 
 /**

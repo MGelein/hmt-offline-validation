@@ -1,3 +1,75 @@
+//The entry with a name and image
+class ScholiaEntry {
+  URN imgUrn;
+  URN nameUrn;
+
+  ScholiaEntry(String u, String i) {
+    imgUrn = new URN(i);
+    nameUrn = new URN(u);
+  }
+}
+
+//Holds all scholion urns to a DB urn
+class ScholiaDB {
+  //The lines that we've read that contain the defs for all URNS
+  String[] lines;
+  //The list of entries, defined by URN (for the scholion entry) to image URN
+  ArrayList<ScholiaEntry> scholia = new ArrayList<ScholiaEntry>();
+
+  //Creates a new DB
+  ScholiaDB() {
+    load();
+  }
+
+  //Start loading the urn DB
+  void load() {
+    String fileName = "dse/";
+    //The manuscript suffix for this manuscript
+    fileName += MANUSCRIPT.equals(VB) ? "msB" : "e3";
+    fileName += "_scholia.cex";
+    lines = readFile(fileName);
+
+    //Now parse the lines
+    parseLines();
+  }
+
+  //Parse the contents of the file
+  void parseLines() {
+    //Go through all lines
+    for (int i = 1; i < lines.length; i++) {
+      parseLine(lines[i]);
+    }
+  }
+
+  //Parse a single line
+  void parseLine(String l) {
+    //Split into the separate CEX parts
+    String[] parts = l.split("#");
+    scholia.add(new ScholiaEntry(parts[0], parts[1]));
+  }
+
+  /**
+   Find the right image for the provided scholion
+   **/
+  String getImageForScholion(String scholionUrn) {
+    URN scholion = new URN(scholionUrn);
+    //Go through all entries and find the correct one
+    String result = warning("Unindexed scholion (" + scholionUrn + ")");
+    for (ScholiaEntry e : scholia) {
+      if(!scholion.valid) {
+        result = warning("Malformed scholion URN (" + scholionUrn + ")");
+        break;
+      }
+      if(!e.nameUrn.valid) continue;
+      if(e.nameUrn.object.equals(scholion.object)){
+        return getImageFromUrn(e.imgUrn, 300);
+      }
+    }
+    //Return the found result, at this point this is an error
+    return result;
+  }
+}
+
 /**
  Database for people
  **/
@@ -110,11 +182,11 @@ class Person {
   boolean isAllowed() {
     return status.equals("accepted") || status.equals("proposed");
   }
-  
+
   /**
-  Renders a single table row for the provided person
-  **/
-  String render(String reading){
+   Renders a single table row for the provided person
+   **/
+  String render(String reading) {
     return tr(td(reading) + td(urn) + td(label) + td(description));
   }
 }
@@ -141,7 +213,7 @@ class Place {
   String render(String reading) {
     String labelName = label;
     //If a stoa containing link is set
-    if(pleiades.indexOf("stoa") > -1){//If the pleiades link is available, make it clickable
+    if (pleiades.indexOf("stoa") > -1) {//If the pleiades link is available, make it clickable
       labelName = "<a target='_blank' href='http://" + pleiades + "'>" + labelName + "</a>";
     }
     //Return the markup string

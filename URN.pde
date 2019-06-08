@@ -94,4 +94,12 @@ class URN{
   String toString(){
     return urn;
   }
+  
+  //Tests if the provided URN is internally the same
+  boolean isIdentical(URN u){
+    if(u == null || !u.valid) return false;
+    return u.schema.equals(schema) && u.namespace.equals(namespace) 
+    && u.project.equals(project) && u.collection.equals(collection) 
+    && u.object.equals(object) && u.modifier.equals(modifier);
+  }
 }
