@@ -141,20 +141,43 @@ class Markup {
       placeReadings.add(new PlaceNameReading(xmlNode));
       break;
     default:
-      checkHierarchy(xmlNode.getName(), path);
+    //For normal nodes, check if they are correctly implemented
+      checkHierarchy(xmlNode, path);
     }
   }
 
-  void checkHierarchy(String tagName, String path) {
-    tagName = tagName.toLowerCase();
+  void checkHierarchy(XML node, String path) {
+    String tagName = node.getName().toLowerCase();
     //If using an illegal tag, provide a warning
     if (!isAllowed(tagName)) {//Illegal tag, output a warning
       xmlErrors.add(new XMLError(path + "/" + tagName, "Illegal tag: <code>" + tagName + "</code>"));
       return;//Break here, we don't have any useful info anymore
-    }else{
+    } else {
       //Allowed tag
+      if (!checkTagLevel(node)) {
+        xmlErrors.add(new XMLError(path + "/" + tagName, "Incorrect Hierarchy (invalid nesting) : <code>" + tagName + "</code>"));
+      }
     }
   }
+}
+
+boolean checkTagLevel(XML node) {
+  String tag = node.getName().toLowerCase();
+  String parentTag = node.getParent().getName().toLowerCase();
+  int tagLevel = getTagLevel(tag);
+  if(tagLevel >= 10) return true;//>10 means that those tags are not really important for hierarchy
+  int parentLevel = getTagLevel(parentTag);
+  return parentLevel > tagLevel;
+}
+
+int getTagLevel(String tag){
+  if (levelF.indexOf(tag) > -1) return 10;
+  if (levelE.indexOf(tag) > -1) return 9;
+  if (levelD.indexOf(tag) > -1) return 8;
+  if (levelC.indexOf(tag) > -1) return 7;
+  if (levelB.indexOf(tag) > -1) return 6;
+  if (levelA.indexOf(tag) > -1) return 5;
+  return 11;
 }
 
 ArrayList<String> levelA = new ArrayList<String>();
@@ -164,37 +187,37 @@ ArrayList<String> levelD = new ArrayList<String>();
 ArrayList<String> levelE = new ArrayList<String>();
 ArrayList<String> levelF = new ArrayList<String>();
 
-boolean isAllowed(String tag){
-  if(levelF.indexOf(tag) > -1) return true;
-  if(levelE.indexOf(tag) > -1) return true;
-  if(levelD.indexOf(tag) > -1) return true;
-  if(levelC.indexOf(tag) > -1) return true;
-  if(levelB.indexOf(tag) > -1) return true;
-  if(levelA.indexOf(tag) > -1) return true;
+boolean isAllowed(String tag) {
+  if (levelF.indexOf(tag) > -1) return true;
+  if (levelE.indexOf(tag) > -1) return true;
+  if (levelD.indexOf(tag) > -1) return true;
+  if (levelC.indexOf(tag) > -1) return true;
+  if (levelB.indexOf(tag) > -1) return true;
+  if (levelA.indexOf(tag) > -1) return true;
   return false;
 }
 
-void addToLevel(String level, String... tags){
-  for(String tag: tags){
-    switch(level){
-      case "A":
-        levelA.add(tag);
-        break;
-      case "B": 
-        levelB.add(tag);
-        break;
-      case "C": 
-        levelC.add(tag);
-        break;
-      case "D": 
-        levelD.add(tag);
-        break;
-      case "E": 
-        levelE.add(tag);
-        break;
-      case "F":
-        levelF.add(tag);
-        break;
+void addToLevel(String level, String... tags) {
+  for (String tag : tags) {
+    switch(level) {
+    case "A":
+      levelA.add(tag);
+      break;
+    case "B": 
+      levelB.add(tag);
+      break;
+    case "C": 
+      levelC.add(tag);
+      break;
+    case "D": 
+      levelD.add(tag);
+      break;
+    case "E": 
+      levelE.add(tag);
+      break;
+    case "F":
+      levelF.add(tag);
+      break;
     }
   }
 }
@@ -296,9 +319,9 @@ class PlaceNameReading {
 }
 
 /**
-Loads the different tag levels
-**/
-void loadLevels(){
+ Loads the different tag levels
+ **/
+void loadLevels() {
   addToLevel("A", "unclear", "gap", "sic");
   addToLevel("B", "foreign", "num", "w");
   addToLevel("C", "add", "del", "abbr", "expan", "sic", "corr", "orig", "reg");
