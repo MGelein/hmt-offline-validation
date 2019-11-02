@@ -15,6 +15,7 @@ String TARGET;
 
 final String E3 = "E3";
 final String VB = "vb";
+
 String MANUSCRIPT;
 
 //The String used to create the HTML document head
@@ -97,7 +98,7 @@ String getImageFromUrn(URN urn, int size){
   //No valid url is possible if the urn is null, or is not valid
   if(urn == null || !urn.valid) return "";
   //The base url, use this for replacing stuff.
-  String baseUrl = "http://www.homermultitext.org/iipsrv?OBJ=IIP,1.0&FIF=/project/homer/pyramidal/deepzoom/";
+  String baseUrl = "https://www.homermultitext.org/iipsrv?OBJ=IIP,1.0&FIF=/project/homer/pyramidal/deepzoom/";
   baseUrl += "hmt/COLLECTION/OBJECT.tif&RGN=REGION&WID=" + size +"&CVT=JPEG";
   String collection = urn.getCollectionForUrl();
   String object = urn.getObjectWithoutModifier();

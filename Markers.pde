@@ -19,7 +19,7 @@ class Markers{
   **/
   void load(){
     //The baseFile Url
-    String fileName = "scholion-markers/";
+    String fileName = "scholia-markers/";
     //The manuscript suffix for this manuscript
     fileName += manuscript.equals(VB) ? "msB" : "e3";
     //Finally add the .cex extension and load
@@ -42,7 +42,7 @@ class Markers{
     reportLines.append("<p>This document contains indexing of the scholia markers.</p>");
     
     //Add the report lines
-    reportLines.append("<h3>Scholion Markers</h3>"); 
+    reportLines.append("<h3>Scholia Markers</h3>"); 
     reportLines.append("<table class='table table-striped'><tr>");
     reportLines.append("<th>Marker Reading</th><th>Marker Image</th><th>Marker Text</th><th>Scholion Image</th></tr>");
     

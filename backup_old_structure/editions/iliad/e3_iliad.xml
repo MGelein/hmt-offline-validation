@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Iliad</title>
+        <editor>Tazuko van Berkel</editor>
+        <editor>Suzan Boreel</editor>
+        <editor>Manon Junggeburt</editor>
+
+      </titleStmt>
+      <publicationStmt>
+        <p>Unpublished edition of the Escorial manuscript Upsilon 1.1 for the Homer Multitext project</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Edited directly from photography of the manuscript</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div n="10">
+        <l n="387">ἤ τινα συλήσων νεκύων κατατεθνειώτων-</l>
+        <l n="388">ἤ σ᾽<persName n="urn:cite2:hmt:pers.v1:pers172">Ἕκτωρ</persName> προέηκε διασκοπιάασθαι ἕκαστα</l>
+        <l n="389">νῆας ἐπὶ γλαφυρὰς. ἦ σαυτὸν θυμὸς ἀνῆκε-</l>
+        <l n="390">τὸν δ᾽ ἠμείβετ᾽ ἔπειτα <persName n="urn:cite2:hmt:pers.v1:pers474">Δόλων</persName>- ὑπὸ δ᾽ ἔτρεμε γυῖα-</l>
+        <l n="391">πολλῇσιν μ᾽ ἄτῃσι παρεκ νόον ἤγαγεν <persName n="urn:cite2:hmt:pers.v1:pers172">Ἕκτωρ</persName>-</l>
+        <l n="392">ὅς μοι <persName n="urn:cite2:hmt:pers.v1:pers1">Πηλείωνος</persName> ἀγαυοῦ μώνυχας ἵππους</l>
+        <l n="393">δωσέμεναι κατένευσε- καὶ ἅρματα ποικίλα χαλκῷ-</l>
+        <l n="394">ἠνώγει δέ μ᾽ ἰόντα θοὴν διὰ νύκτα μέλαιναν</l>
+        <l n="395">ἀνδρῶν δυσμενέων σχεδὸν ἐλθέμεν ἔκ τε πυθέσθαι</l>
+        <l n="396">ἠὲ φυλάσσονται νῆες θοαὶ ὡς τὸ πάρος περ,</l>
+        <l n="397">ἢ ἤδη χείρεσσιν ὑφ᾽ ημετέρῃσι δαμέντες</l>
+        <l n="398">φύξιν βουλεύοιτε μετὰ σφίσιν- οὐδ᾽ ἐθέλοιτε</l>
+        <l n="399">νύκτα φυλασσέμεναι- καμάτῳ ἀδηκότες αἰνῷ-</l>
+        <l n="400">τὸν δ᾽ ἐπιμειδήσας προσέφη πολύμητις <persName n="urn:cite2:hmt:pers.v1:pers118">Ὀδυσσεύς</persName>-</l>
+        <l n="401">ἦ ῥα νύ τοι μεγάλων δώρων ἐπεμαίετο θυμὸς</l>
+        <l n="402">ἵππων <persName n="urn:cite2:hmt:pers.v1:pers1">Αἰακίδαο</persName> δαΐφρονος- οἳ δ᾽ ἀλεγεινοὶ</l>
+        <l n="403">ἀνδράσι γε θνητοῖσι δαμημεναί ἢδ᾽ ὀχέεσθαι</l>
+        <l n="404">ἄλλῳ γ, ἢ <persName n="urn:cite2:hmt:pers.v1:pers1">Ἀχιλῆϊ</persName>, τὸν ἀθανάτη τέκε μήτηρ.</l>
+        <l n="405">ἀλλ᾽ ἄγε μοι τόδε εἰπὲ καὶ ἀτρεκέως κατάλεξον-</l>
+        <l n="406">ποῦ νῦν δεῦρο κιὼν λίπες <persName n="urn:cite2:hmt:pers.v1:pers172">Ἕκτορα</persName> ποιμένα λαῶν-</l>
+        <l n="407">ποῦ δέ οἱ ἔντεα κεῖται ἀρήϊα- ποῦ δέ οἱ ἵπποι-</l>
+        <l n="408">πῶς δαὶ τῶν ἄλλων <rs type="ethnic" n="urn:cite2:hmt:place.v1:place6">Τρώων</rs> φυλακαί τε καὶ εὐναί-</l>
+        <l n="409">ἅσσά τε μητιόωσι μετὰ σφίσιν- ἢ μεμάασιν</l>
+        <l n="410">αὖθι μένειν παρὰ νηυσὶν ἀπόπροθι- ἠὲ πόλιν δὲ</l>
+      </div>
+    </body>
+  </text>
+</TEI>
